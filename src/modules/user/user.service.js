@@ -15,8 +15,8 @@ export const getUserByEmail = async (email) => {
     return user;
 }
 
-export const createUser = async (userData) => {
-    const user = User.create(userData);
+export const createUser = async ({ name, email, password, age, gender }) => {
+    const user = User.create({ name, email, password, age, gender});
     return user;
 }
 
