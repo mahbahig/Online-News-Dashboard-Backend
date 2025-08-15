@@ -3,7 +3,7 @@ import { eventEmitter, GenerateToken, Hash, Compare } from "../../utils/index.js
 
 export const signup = async ({ name, email, age, gender, password }) => {
     // Check if user already exists
-    if (await User.findOne({ email })) throw new Error("Email already exists");
+    if (await getUserByEmail(email)) throw new Error("Email already exists");
 
     // Send confirmation email
     eventEmitter.emit("confirmEmail", { email });
@@ -25,7 +25,7 @@ export const signup = async ({ name, email, age, gender, password }) => {
 };
 
 export const login = async ({ email, password }) => {
-    const user = await User.findOne({ email });
+    const user = await getUserByEmail(email);
     if (!user) throw new Error("User not exists");
 
     const match = await Compare({ plainText: password, hashedText: user.password });
@@ -40,7 +40,17 @@ export const login = async ({ email, password }) => {
     return { user, token };
 };
 
-export const getUserById = async (id) => User.findById(id);
+export const getUserById = async (id) => {
+    const user = await User.findById(id);
+    if (!user) throw new Error("User not found", { cause: 404 });
+    return user;
+};
+
+export const getUserByEmail = async (email) => {
+    const user = await User.findOne({ email });
+    if (!user) throw new Error("User not found", { cause: 404 });
+    return user;
+};
 
 export const getAllUsers = async () => User.find();
 
