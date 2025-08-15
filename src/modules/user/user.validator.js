@@ -6,7 +6,6 @@ export const signupSchema = {
     body: Joi.object({
         name: Joi.string().min(3).max(15).required(),
         email: generalRules.email.required(),
-        age: Joi.number().min(18).max(60),
         gender: Joi.string().valid(userGender.female, userGender.male),
         password: generalRules.password.required(),
         confirmPassword: Joi.string().valid(Joi.ref("password")).required(),

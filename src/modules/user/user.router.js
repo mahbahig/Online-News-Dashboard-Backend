@@ -5,6 +5,7 @@ import { validation } from "../../middleware/validation.js";
 
 const userRouter = Router();
 
-userRouter.post("/signup", validation(UV.signupSchema), UC.signup)
+userRouter.post("/signup", validation(UV.signupSchema), UC.signup);
+userRouter.post("/login", validation(UV.loginSchema), UC.login);
 
 export default userRouter;

@@ -20,11 +20,6 @@ const userSchema = new mongoose.Schema({
         trim: true,
         lowercase: true,
     },
-    age: {
-        type: Number,
-        min: [18, "You must be at least 18 years old"],
-        max: [60, "You must be at most 60 years old"]
-    },
     gender: {
         type: String,
         enum: [userGender.male, userGender.female]
