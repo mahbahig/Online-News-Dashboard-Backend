@@ -11,7 +11,7 @@ export const getUserById = async (id) => {
 }
 
 export const getUserByEmail = async (email) => {
-    const user = await User.findOne({ email, confirmed: true });
+    const user = await User.findOne({ email });
     return user;
 }
 

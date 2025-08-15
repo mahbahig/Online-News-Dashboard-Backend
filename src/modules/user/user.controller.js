@@ -22,7 +22,7 @@ export const signup = async (req, res, next) => {
     if (!token) {
         throw new Error("Cannot create token", { cause: 500 });
     }
-    res.status(201).json({ message: "User created successfully", token });
+    res.status(201).json({ message: "Success", token });
 };
 // ====================================== LOGIN ======================================
 export const login = async (req, res, next) => {
@@ -47,5 +47,7 @@ export const login = async (req, res, next) => {
     if (!token) {
         throw new Error("Cannot create token", { cause: 500 });
     }
-    res.status(201).json({ message: "Logged in successfully", token });
+    res.status(201).json({ message: "Success", token });
 };
+
+// TODO: npm 
