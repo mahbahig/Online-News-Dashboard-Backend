@@ -1,12 +1,13 @@
 import { User } from "../../db/models/user.model.js";
-import { eventEmitter, GenerateToken, Hash, Compare } from "../../utils/index.js";
+import { emailConfirmedTemplate } from "../../templates/emailConfirmed/emailConfirmed.js";
+import { eventEmitter, GenerateToken, Hash, Compare, VerifyToken } from "../../utils/index.js";
 
 export const signup = async ({ name, email, age, gender, password }) => {
     // Check if user already exists
-    if (await getUserByEmail(email)) throw new Error("Email already exists");
+    if (await User.findOne({ email })) throw new Error("Email already exists");
 
     // Send confirmation email
-    eventEmitter.emit("confirmEmail", { email });
+    eventEmitter.emit("confirmEmail", (email));
 
     // Hash password
     const hashedPassword = await Hash({ plainText: password });
@@ -45,6 +46,26 @@ export const getUserById = async (id) => {
     if (!user) throw new Error("User not found", { cause: 404 });
     return user;
 };
+
+export const confirmEmail = async (token) => {
+    if (!token) {
+        throw new Error("Token is required", { cause: 400 });
+    }
+
+    const decoded = VerifyToken({ token });
+    if (!decoded) {
+        throw new Error("Invalid token", { cause: 400 });
+    }
+
+    const user = await getUserByEmail(decoded.email);
+    if (!user) {
+        throw new Error("User not found", { cause: 404 });
+    }
+    user.isEmailConfirmed = true;
+    await user.save();
+    const successHtml = emailConfirmedTemplate(user.name);
+    return successHtml;
+}
 
 export const getUserByEmail = async (email) => {
     const user = await User.findOne({ email });

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Email Confirmed</title>
+</head>
+<body
+    style="margin:0; padding:0; background:#0f172a; color:#0b1324; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, 'Apple Color Emoji','Segoe UI Emoji', 'Segoe UI Symbol';">
+    <div style="min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px;">
+        <div
+            style="width:100%; max-width:520px; background:#ffffff; border-radius:20px; box-shadow:0 10px 30px rgba(0,0,0,0.25); padding:32px; text-align:center;">
+
+            <!-- Check icon -->
+            <div
+                style="width:80px; height:80px; margin:0 auto 16px; border-radius:50%; background:#e8f7ef; display:flex; align-items:center; justify-content:center;">
+                <svg width="42" height="42" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <circle cx="12" cy="12" r="10" stroke="#16a34a" stroke-width="2" />
+                    <path d="M7 12.5l3 3 7-7" stroke="#16a34a" stroke-width="2.2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </div>
+
+            <h1 style="margin:8px 0 6px; font-size:28px; line-height:1.2; color:#0b1324;">
+                Congrats {{name}}! Your email is confirmed 🎉
+            </h1>
+            <p style="margin:0 0 18px; font-size:16px; color:#475569;">
+                Your email has been successfully verified. You can now sign in and start using your account.
+            </p>
+
+            <!-- CTA buttons -->
+            <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:8px;">
+                <a href="{{homePage}}"
+                    style="display:inline-block; text-decoration:none; background:#16a34a; color:#ffffff; padding:12px 18px; border-radius:12px; font-weight:600;">
+                    Go to Home
+                </a>
+                <a href="{{loginPage}}"
+                    style="display:inline-block; text-decoration:none; background:#0ea5e9; color:#ffffff; padding:12px 18px; border-radius:12px; font-weight:600;">
+                    Sign in
+                </a>
+            </div>
+
+            <!-- Secondary info -->
+            <div style="margin-top:22px; font-size:13px; color:#6b7280;">
+                Didn’t expect this email? You can ignore this message.
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

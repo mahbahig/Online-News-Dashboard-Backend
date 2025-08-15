@@ -13,9 +13,15 @@ export const login = async (req, res, next) => {
 };
 
 export const getUser = async (req, res, next) => {
-    const user = await US.getUserById(req.params.id);
+    const user = await US.getUserById(req.user.id);
     if (!user) {
         throw new Error("User not found", { cause: 404 });
     }
     res.status(200).json(user);
 };
+
+export const confirmEmail = async (req, res, next) => {
+    const { token } = req.params;
+    const result = await US.confirmEmail(token);
+    res.status(200).send(result);
+}
