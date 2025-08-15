@@ -7,5 +7,7 @@ const userRouter = Router();
 
 userRouter.post("/signup", validation(UV.signupSchema), UC.signup);
 userRouter.post("/login", validation(UV.loginSchema), UC.login);
+userRouter.get("/:id",  UC.getUser);
+
 
 export default userRouter;

@@ -1,53 +1,21 @@
 import * as US from "./user.service.js";
-import { eventEmitter, GenerateToken, Hash, Compare } from "../../utils/index.js"
 
-// ====================================== SIGNUP ======================================
 export const signup = async (req, res, next) => {
-    const { name, email, gender, password } = req.body;
-
-    // Check if user already exists
-    if (await US.getUserByEmail(email)) {
-        throw new Error("Email already exists", { cause: 400 });
-    }
-
-    // Send confirmation email
-    eventEmitter.emit("confirmEmail", { email })
-
-    // Hash password and create user
-    const hashedPassword = await Hash({ plainText: password });
-    const user = await US.createUser({ name, email, age, gender, password: hashedPassword });
-
-    // Create token
-    const token = GenerateToken({ payload: { id: user._id, email: user.email }, options: { expiresIn: "1h" } });
-    if (!token) {
-        throw new Error("Cannot create token", { cause: 500 });
-    }
-    res.status(201).json({ message: "Success", token });
+    const { name, email, age, gender, password } = req.body;
+    const result = await US.signup({ name, email, age, gender, password });
+    res.status(201).json({ message: "Success", token: result.token });
 };
-// ====================================== LOGIN ======================================
+
 export const login = async (req, res, next) => {
     const { email, password } = req.body;
-
-    // Check if user already exists
-    const user = await US.getUserByEmail(email);
-    if (!user) {
-        throw new Error("User not exists", { cause: 404 });
-    }
-
-    // Compare user input to stored hashed password
-    const match = await Compare({ plainText: password, hashedText: user.password });
-
-    // Handling wrong password error
-    if(!match) {
-        throw new Error('Wrong password', { cause: 401 });
-    }
-
-    // Create token
-    const token = GenerateToken({ payload: { id: user._id, email: user.email }, options: { expiresIn: "1h" } });
-    if (!token) {
-        throw new Error("Cannot create token", { cause: 500 });
-    }
-    res.status(201).json({ message: "Success", token });
+    const result = await US.login({ email, password });
+    res.status(200).json({ message: "Success", token: result.token });
 };
 
-// TODO: npm 
+export const getUser = async (req, res, next) => {
+    const user = await US.getUserById(req.params.id);
+    if (!user) {
+        throw new Error("User not found", { cause: 404 });
+    }
+    res.status(200).json(user);
+};
