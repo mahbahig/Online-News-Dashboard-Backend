@@ -65,6 +65,18 @@ export const confirmEmail = async (token) => {
     await user.save();
     const successHtml = emailConfirmedTemplate(user.name);
     return successHtml;
+};
+
+export const getUserProfile = async (token) => {
+    if (!token) {
+        throw new Error("Token is required", { cause: 400 });
+    }
+    const decoded = VerifyToken({ token });
+    if (!decoded) {
+        throw new Error("Invalid token", { cause: 400 });
+    }
+    const user = await getUserById(decoded.id);
+    return user;
 }
 
 export const getUserByEmail = async (email) => {

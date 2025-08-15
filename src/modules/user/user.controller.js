@@ -12,11 +12,9 @@ export const login = async (req, res, next) => {
     res.status(200).json({ message: "Success", token: result.token });
 };
 
-export const getUser = async (req, res, next) => {
-    const user = await US.getUserById(req.user.id);
-    if (!user) {
-        throw new Error("User not found", { cause: 404 });
-    }
+export const getUserProfile = async (req, res, next) => {
+    const token = req.headers.authorization;
+    const user = await US.getUserProfile(token);
     res.status(200).json(user);
 };
 
