@@ -14,5 +14,5 @@ export const searchNews = async (req, res, next) => {
 export const favoriteArticle = async (req, res, next) => {
     const { userId, title, coverImg, author, abstract, url, source } = req.body;
     const article = await NS.favoriteArticle(userId, title, coverImg, author, abstract, url, source);
-    res.status(200).json({ message: "Article favorited", data: article });
+    res.status(200).json({ message: "Success", data: article });
 }
