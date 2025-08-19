@@ -17,7 +17,7 @@ export const signup = async ({ name, email, age, gender, password }) => {
 
     // Create token
     const token = GenerateToken({
-        payload: { id: user._id, email: user.email },
+        payload: { id: user._id, name: user.name, email: user.email },
         options: { expiresIn: "1h" }
     });
     if (!token) throw new Error("Cannot create token");
@@ -33,8 +33,8 @@ export const login = async ({ email, password }) => {
     if (!match) throw new Error("Wrong password");
 
     const token = GenerateToken({
-        payload: { id: user._id, email: user.email },
-        options: { expiresIn: "1h" }
+        payload: { id: user._id, name: user.name, email: user.email },
+        options: { expiresIn: "1h" },
     });
     if (!token) throw new Error("Cannot create token");
 

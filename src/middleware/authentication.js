@@ -2,14 +2,14 @@ import { User } from "../db/models/user.model.js";
 import { VerifyToken } from "../utils/index.js";
 
 export const authentication = async (req, res, next) => {
-    const { authorization } = req.headers;
+    const { token } = req.headers;
     // Check if token is provided
-    if (!authorization) {
+    if (!token) {
         throw new Error("Token not found", { cause: 401 });
     }
 
     // Verify token
-    const decoded = VerifyToken({ token: authorization });
+    const decoded = VerifyToken({ token });
     if (!decoded) {
         throw new Error("Invalid token", { cause: 401 });
     }

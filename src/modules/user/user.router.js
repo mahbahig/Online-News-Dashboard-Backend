@@ -7,7 +7,7 @@ import { authentication } from "../../middleware/authentication.js";
 const userRouter = Router();
 
 userRouter.post("/signup", validation(UV.signupSchema), UC.signup);
-userRouter.get("/confirmEmail/:token", UC.confirmEmail)
+userRouter.get("/confirmEmail/:token", UC.confirmEmail);
 userRouter.post("/login", validation(UV.loginSchema), UC.login);
 userRouter.get("/profile", authentication, UC.getUserProfile);
 
