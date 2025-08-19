@@ -39,6 +39,14 @@ export const favoriteArticle = async (userId, title, coverImg, author, abstract,
     return article;
 };
 
+export const favorites = async (userId) => {
+    if (!userId) {
+        throw new Error("User ID is required");
+    }
+    const articles = await News.find({ userId });
+    return articles;
+}
+
 const adaptSearchedArticle = (article) => {
     return {
         title: article.headline.main,

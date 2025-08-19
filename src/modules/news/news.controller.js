@@ -16,3 +16,9 @@ export const favoriteArticle = async (req, res, next) => {
     const article = await NS.favoriteArticle(userId, title, coverImg, author, abstract, url, source);
     res.status(200).json({ message: "Success", data: article });
 }
+
+export const favorites = async (req, res, next) => {
+    const userId  = req.params.id;
+    const articles = await NS.favorites(userId);
+    res.status(200).json({ message: "Success", data: articles });
+}

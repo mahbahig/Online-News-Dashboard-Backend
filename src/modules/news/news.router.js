@@ -9,5 +9,6 @@ const newsRouter = Router();
 newsRouter.get("/mostPopular", NC.mostPopular);
 newsRouter.get("/searchNews", NC.searchNews);
 newsRouter.post("/favoriteArticle", validation(NV.favoriteArticleSchema), NC.favoriteArticle);
+newsRouter.get("/favorites/:id", NC.favorites);
 
 export default newsRouter;
