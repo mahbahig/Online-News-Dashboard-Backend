@@ -2,11 +2,12 @@ import { News } from "../../db/models/news.model.js";
 
 export const mostPopular = async () => {
     let articles = [];
-    let res = await fetch(
-        `https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=${process.env.NYT_API_KEY}`
-    );
+    let res = await fetch(`https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=${process.env.NYT_API_KEY}`);
     res = await res.json();
     res = res.results;
+    if (!Array.isArray(res)) {
+        throw new Error("Unexpected response format from NYT API");
+    }
     res.forEach((article) => {
         article = adaptMostPopularArticle(article);
         if (article.coverImg) {
